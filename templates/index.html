@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados - CASO6</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 60px;
+        }
+
+        .img-row {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .img-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .img-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .img-box p {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .img-box img {
+            width: 220px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .metric-section img {
+            width: 70%;
+            max-width: 800px;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .img-row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .img-box img {
+                width: 90%;
+            }
+
+            .metric-section img {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Resultados del Autoencoder - CASO 6</h1>
+
+    <h2>Mejora visual de secuencias de vigilancia mediante autoencoders</h2>
+
+    {% for img in images %}
+        <div class="img-row">
+            <div class="img-box">
+                <p>Limpia</p>
+                <img src="{{ url_for('static', filename=img.clean) }}">
+            </div>
+            <div class="img-box">
+                <p>Ruidosa</p>
+                <img src="{{ url_for('static', filename=img.noisy) }}">
+            </div>
+            <div class="img-box">
+                <p>Denoised</p>
+                <img src="{{ url_for('static', filename=img.denoised) }}">
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="metric-section">
+        <h2>Curva de pérdida del modelo</h2>
+        <img src="{{ url_for('static', filename='outputs/loss_curve.png') }}" alt="Curva de pérdida">
+    </div>
+
+    <h3 style="margin-top: 40px; color: #2d3436;">
+    Dataset utilizado: <span style="color: #0984e3;">CIFAR-10 (con ruido artificial gaussiano)</span>
+    </h3>
+
+</body>
+</html>
